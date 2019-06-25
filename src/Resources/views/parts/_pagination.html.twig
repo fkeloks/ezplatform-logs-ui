@@ -1,0 +1,43 @@
+{% macro pagination(total, current, url, nearbyPagesLimit = 4) %}
+    {% spaceless %}
+        {% if total > 1 %}
+            <nav aria-label="Pagination of logs">
+                <ul class="pagination">
+                    {% for i in 1..total %}
+                        {% if 0 == (current - nearbyPagesLimit) - loop.index %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ (url ~ 1)|e }}">1</a>
+                            </li>
+                            {% if 1 != loop.index %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" aria-disabled="true">…</a>
+                                </li>
+                            {% endif %}
+                        {% elseif 0 == (current + nearbyPagesLimit) - loop.index  and (current + nearbyPagesLimit) < total %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-disabled="true">…</a>
+                            </li>
+                        {% elseif 0 < (current - nearbyPagesLimit) - loop.index %}
+                        {% elseif 0 > (current + nearbyPagesLimit) - loop.index %}
+                        {% else %}
+                            <li class="page-item {{ current == loop.index ? 'active' }}">
+                                {% if current == loop.index %}
+                                    <a class="page-link">{{ loop.index }}</a>
+                                {% else %}
+                                    <a href="{{ url ~ loop.index }}" class="page-link">
+                                        {{ loop.index }}
+                                    </a>
+                                {% endif %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if current != total  and (current + nearbyPagesLimit) < total %}
+                        <li class="page-item">
+                            <a href="{{ (url ~ total)|e }}" class="page-link">{{ total }}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    {% endspaceless %}
+{% endmacro %}

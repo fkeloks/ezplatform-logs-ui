@@ -1,0 +1,5 @@
+ezplatform_logs_ui_index:
+    path: /ezplatform-logs-ui/{chunkId}
+    defaults: { _controller: EzPlatformLogsUiBundle:LogsManager:index, chunkId: 1 }
+    requirements:
+        chunkId: '\d+'

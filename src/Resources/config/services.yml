@@ -1,0 +1,7 @@
+services:
+    EzPlatformLogsUi\Bundle\Controller\:
+        resource: '../../Controller/*'
+        autowire: true
+        autoconfigure: true
+        public: false
+        exclude: '../../Controller/{Controller}'

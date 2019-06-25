@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    EzPlatformLogsUi\Bundle\EventListener\AdminMenuListener:
+        tags:
+            - { name: kernel.event_subscriber }

@@ -1,0 +1,74 @@
+{% extends 'EzPlatformAdminUiBundle::layout.html.twig' %}
+
+{% block breadcrumbs %}
+    {% include '@EzPlatformAdminUi/parts/breadcrumbs.html.twig' with { items: [
+        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
+        { value: 'EzPlatform Logs' },
+    ]} %}
+{% endblock %}
+
+{% block title %}EzPlatform Logs{% endblock %}
+
+{% block page_title %}
+    {% include '@EzPlatformAdminUi/parts/page_title.html.twig' with {
+        title: 'EzPlatform Logs',
+        iconName: 'contentlist'
+    } %}
+{% endblock %}
+
+{% block content %}
+    <section class="container my-4">
+
+        <div class="ez-table-header">
+            <div class="ez-table-header__headline">Logs</div>
+        </div>
+
+        {% if logs is not defined or logs|length == 0 %}
+            <p class="alert alert-warning">The log file seems empty...</p>
+        {% else %}
+            <table class="ez-table table">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Logger</th>
+                    <th scope="col">Message</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for log in logs %}
+                    <tr class="ez-table__cell">
+                        <th scope="row">{{ log.date|raw }}</th>
+                        <td>
+                            <span class="badge badge-{{ log.class is defined ? log.class : 'secondary' }}">
+                                {{ log.logger }}.{{ log.level }}
+                            </span>
+                        </td>
+                        <td class="text-break">
+                            <samp>{{ log.message }}</samp>
+                            <details>
+                                <summary>Context, Extra</summary>
+                                <strong>Context:&nbsp;</strong><samp class="d-block">{{ log.context }}</samp>
+                                <strong>Extra:&nbsp;</strong><samp class="d-block">{{ log.extra }}</samp>
+                            </details>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% from '@EzPlatformLogsUi/parts/_pagination.html.twig' import pagination %}
+            {{ pagination((total / 20)|round(0, 'ceil'), currentChunkId, path('ezplatform_logs_ui_index') ~ '/') }}
+        {% endif %}
+
+    </section>
+
+    <style>
+        .ez-table__cell th {
+            min-width: 130px;
+        }
+
+        .ez-table__cell th, .ez-table__cell td {
+            vertical-align: top;
+        }
+    </style>
+{% endblock %}
