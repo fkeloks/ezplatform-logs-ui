@@ -11,11 +11,11 @@ Symfony bundle dedicated to eZ Platform, to add a log management interface to th
 
 ## Requirements
 
-* php: ,
+* php: ^7.1.3
 * ezsystems/ezplatform: 2.5.*
 * ezsystems/ezplatform-admin-ui: ^1.5
 
-:warning: Warning, in its current version, the bundle **only supports** log files in "`Monolog/LineFormatter`" format. [LineFormatter from Github]([https://github.com/Seldaek/monolog/blob/master/src/Monolog/Formatter/LineFormatter.php](https://github.com/Seldaek/monolog/blob/master/src/Monolog/Formatter/LineFormatter.php))
+:warning: Warning, in its current version, the bundle **only supports** log files in `Monolog/LineFormatter` format. [LineFormatter from Github]([https://github.com/Seldaek/monolog/blob/master/src/Monolog/Formatter/LineFormatter.php](https://github.com/Seldaek/monolog/blob/master/src/Monolog/Formatter/LineFormatter.php))
 
 ## Installation
 
