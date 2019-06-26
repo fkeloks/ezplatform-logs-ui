@@ -1,6 +1,11 @@
 EzPlatformLogsUiBundle
 ============
 
+<p align="center">
+<a href="https://travis-ci.com/fkeloks/ezplatform-logs-ui"><img src="https://travis-ci.com/fkeloks/ezplatform-logs-ui.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/fkeloks/ezplatform-logs-ui"><img src="https://poser.pugx.org/fkeloks/ezplatform-logs-ui/license.svg" alt="License"></a>
+</p>
+
 Symfony bundle dedicated to eZ Platform, to add a log management interface to the back office.  
 
 ![Screenshot of EzPlatformLogsUiBundle](https://i.imgur.com/Dlr1LFs.png)
