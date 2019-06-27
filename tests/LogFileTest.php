@@ -36,26 +36,33 @@ class LogFileTest extends TestCase {
     }
 
     public function testValidLogFileReadingAndParsing(): void {
-        $lines = $this->validLogFile->read();
+        $lastLines = [
+            '[2019-06-23 16:20:29] php.INFO: User Deprecated: Checking for the initialization of the "ezpublish.siteaccessaware.service.object_state" private service is deprecated since Symfony 3.4 and won\'t be supported anymore in Symfony 4.0. {"exception":"[object] (ErrorException(code: 0): User Deprecated: Checking for the initialization of the \"ezpublish.siteaccessaware.service.object_state\" private service is deprecated since Symfony 3.4 and won\'t be supported anymore in Symfony 4.0. at ezplatform\\\\vendor\\\\symfony\\\\symfony\\\\src\\\\Symfony\\\\Component\\\\DependencyInjection\\\\Container.php:364)"} []',
+            '[2019-06-23 16:20:29] php.INFO: User Deprecated: Checking for the initialization of the "ezpublish.siteaccessaware.service.content_type" private service is deprecated since Symfony 3.4 and won\'t be supported anymore in Symfony 4.0. {"exception":"[object] (ErrorException(code: 0): User Deprecated: Checking for the initialization of the \"ezpublish.siteaccessaware.service.content_type\" private service is deprecated since Symfony 3.4 and won\'t be supported anymore in Symfony 4.0. at ezplatform\\\\vendor\\\\symfony\\\\symfony\\\\src\\\\Symfony\\\\Component\\\\DependencyInjection\\\\Container.php:364)"} []',
+            '[2019-06-23 16:20:29] php.INFO: User Deprecated: Checking for the initialization of the "ezpublish.siteaccessaware.service.content" private service is deprecated since Symfony 3.4 and won\'t be supported anymore in Symfony 4.0. {"exception":"[object] (ErrorException(code: 0): User Deprecated: Checking for the initialization of the \"ezpublish.siteaccessaware.service.content\" private service is deprecated since Symfony 3.4 and won\'t be supported anymore in Symfony 4.0. at ezplatform\\\\vendor\\\\symfony\\\\symfony\\\\src\\\\Symfony\\\\Component\\\\DependencyInjection\\\\Container.php:364)"} []'
+        ];
+
+        $lines = $this->validLogFile->tail();
         $this->assertIsArray($lines);
         $this->assertCount(32, $lines);
+        $this->assertSame($lastLines, array_slice($lines, 0, 3));
 
         $lines = $this->validLogFile->parse($lines);
         $this->assertIsArray($lines);
         $this->assertCount(32, $lines);
         $this->assertSame([
-            'date'    => '2019-06-23 16:20:06',
-            'logger'  => 'app',
-            'level'   => 'WARNING',
-            'message' => 'ConfigResolver was used by "ezplatform\var\cache\dev\ContainerAxajx6t\getConsole_Command_EzsystemsEzplatformgraphqlCommandGenerateplatformschemacommand(@ezpublish.siteaccessaware.service.content_type)" before SiteAccess was initialized, loading parameter(s) "$languages$". As this can cause very hard to debug issues, try to use ConfigResolver lazily, make the affected commands lazy, make the service lazy or see if you can inject another lazy service.',
-            'context' => '[]',
+            'date'    => '2019-06-23 16:20:29',
+            'logger'  => 'php',
+            'level'   => 'INFO',
+            'message' => 'User Deprecated: Checking for the initialization of the "ezpublish.siteaccessaware.service.object_state" private service is deprecated since Symfony 3.4 and won\'t be supported anymore in Symfony 4.0. {"exception":"[object] (ErrorException(code: 0): User Deprecated: Checking for the initialization of the \"ezpublish.siteaccessaware.service.object_state\" private service is deprecated since Symfony 3.4 and won\'t be supported anymore in Symfony 4.0. at',
+            'context' => 'ezplatform\\\\vendor\\\\symfony\\\\symfony\\\\src\\\\Symfony\\\\Component\\\\DependencyInjection\\\\Container.php:364)"}',
             'extra'   => '[]',
-            'class'   => 'warning'
+            'class'   => 'info'
         ], $lines[0]);
     }
 
     public function testEmptyLogFileReadingAndParsing(): void {
-        $lines = $this->emptyLogFile->read();
+        $lines = $this->emptyLogFile->tail();
         $this->assertIsArray($lines);
         $this->assertEmpty($lines);
 
@@ -66,7 +73,7 @@ class LogFileTest extends TestCase {
 
     public function testInvalidLogFileReadingAndParsing(): void {
         // Partially invalid
-        $lines = $this->invalidLogFiles['partially']->read();
+        $lines = $this->invalidLogFiles['partially']->tail();
         $this->assertIsArray($lines);
         $this->assertCount(17, $lines);
 
@@ -75,7 +82,7 @@ class LogFileTest extends TestCase {
         $this->assertCount(10, $lines);
 
         // Full invalid
-        $lines = $this->invalidLogFiles['full']->read();
+        $lines = $this->invalidLogFiles['full']->tail();
         $this->assertIsArray($lines);
         $this->assertCount(7, $lines);
 

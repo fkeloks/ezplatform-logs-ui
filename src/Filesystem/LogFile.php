@@ -39,26 +39,55 @@ class LogFile {
 
     /**
      * Read lines from current log file
+     * Inspired by the work of Ain Tohvri
      *
-     * @param int|bool $limit
+     * @see http://tekkie.flashbit.net/php/tail-functionality-in-php
+     *
+     * @param int $lines
+     * @param bool $skipEmptyLines
      *
      * @return array
      */
-    public function read($limit = 1000): array {
-        $lines = [];
+    public function tail($lines = 100, bool $skipEmptyLines = true): array {
         $handle = fopen($this->filePath, 'rb');
+        $lineCounter = $lines;
+        $beginning = false;
+        $text = [];
+        $pos = -2;
 
-        while (!feof($handle)) {
-            $lines[] = trim(fgets($handle));
+        while ($lineCounter > 0) {
+            $t = ' ';
+            while ($t !== "\n") {
+                if (fseek($handle, $pos, SEEK_END) === -1) {
+                    $beginning = true;
+                    break;
+                }
 
-            if ($limit && count($lines) === $limit) {
+                $t = fgetc($handle);
+                $pos--;
+            }
+
+            $lineCounter--;
+            if ($beginning) {
+                rewind($handle);
+            }
+
+            $line = fgets($handle);
+            if (trim($line)) {
+                $text[$lines - $lineCounter - 1] = $line;
+            } elseif ($skipEmptyLines && $lineCounter < ($lines + 20)) {
+                $lineCounter++;
+            }
+
+
+            if ($beginning) {
                 break;
             }
         }
 
         fclose($handle);
 
-        return array_filter($lines, 'mb_strlen');
+        return array_map('trim', $text);
     }
 
     /**

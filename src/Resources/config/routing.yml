@@ -3,3 +3,7 @@ ezplatform_logs_ui_index:
     defaults: { _controller: EzPlatformLogsUiBundle:LogsManager:index, chunkId: 1 }
     requirements:
         chunkId: '\d+'
+
+ezplatform_logs_ui_reload:
+    path: /ezplatform-logs-ui/reload
+    defaults: { _controller: EzPlatformLogsUiBundle:LogsManager:reload }

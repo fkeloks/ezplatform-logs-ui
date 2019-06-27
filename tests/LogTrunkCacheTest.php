@@ -30,19 +30,19 @@ class LogTrunkCacheTest extends TestCase {
     public function testGetCacheKeyMethod(): void {
         $encodedLogFilPath = md5(self::LOG_FILE_PATH);
 
-        $this->assertEquals('ezplatform_logs_ui_tests.logs.' . $encodedLogFilPath, $this->logTrunkCache->getCacheKey());
-        $this->assertEquals('ezplatform_logs_ui_tests.tests.' . $encodedLogFilPath, $this->logTrunkCache->getCacheKey('tests'));
+        $this->assertSame('ezplatform_logs_ui_tests.logs.' . $encodedLogFilPath, $this->logTrunkCache->getCacheKey());
+        $this->assertSame('ezplatform_logs_ui_tests.tests.' . $encodedLogFilPath, $this->logTrunkCache->getCacheKey('tests'));
     }
 
     public function testGetChunkIdentifierMethod(): void {
         $encodedLogFilPath = md5(self::LOG_FILE_PATH);
 
-        $this->assertEquals(
+        $this->assertSame(
             'ezplatform_logs_ui_tests.logs.' . $encodedLogFilPath . '.chunk.1',
             $this->logTrunkCache->getChunkIdentifier(1)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'ezplatform_logs_ui_tests.logs.' . $encodedLogFilPath . '.chunk.123',
             $this->logTrunkCache->getChunkIdentifier(123)
         );
@@ -64,11 +64,11 @@ class LogTrunkCacheTest extends TestCase {
     }
 
     public function testGetChunkMethod(): void {
-        $this->assertEquals($this->logTrunkCache->getChunk(1), 123);
-        $this->assertEquals($this->logTrunkCache->getChunk(2), 456);
+        $this->assertSame($this->logTrunkCache->getChunk(1), 123);
+        $this->assertSame($this->logTrunkCache->getChunk(2), 456);
 
         $this->assertNull($this->logTrunkCache->getChunk(3));
-        $this->assertEquals($this->logTrunkCache->getChunk(3, 789), 789);
+        $this->assertSame($this->logTrunkCache->getChunk(3, 789), 789);
     }
 
 }

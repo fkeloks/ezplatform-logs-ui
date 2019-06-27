@@ -122,6 +122,28 @@ class LogTrunkCache {
     }
 
     /**
+     * Deletes multiple cache items in a single operation.
+     *
+     * @param int $total
+     *
+     * @return bool
+     */
+    public function clearChunks(int $total): bool {
+        $numberOfChunks = ceil($total / 20);
+        $chunkCacheKeys = [];
+
+        for ($chunkId = 1; $chunkId <= $numberOfChunks; $chunkId++) {
+            $chunkCacheKeys[] = $this->getChunkIdentifier($chunkId);
+        }
+
+        try {
+            return $this->cacheSystem->deleteMultiple($chunkCacheKeys);
+        } catch (InvalidArgumentException $e) {
+            return false;
+        }
+    }
+
+    /**
      * @return CacheInterface
      */
     public function getCacheSystem(): CacheInterface {
