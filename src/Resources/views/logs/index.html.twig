@@ -19,12 +19,27 @@
 {% block content %}
     <section class="container my-4">
 
+        {% if logPath is not null %}
+            <div class="clearfix">
+                <strong class="d-block float-left">
+                    Last message: {{ logs is defined and logs|length != 0 ? logs|first.date : '(No message)' }} - Click
+                    <a href="{{ path('ezplatform_logs_ui_reload') }}" title="Reload logs">here</a>
+                    to load the latest logs
+                </strong>
+                <strong class="d-block float-right text-right">{{ logPath }}</strong>
+            </div>
+        {% endif %}
+
         <div class="ez-table-header">
             <div class="ez-table-header__headline">Logs</div>
         </div>
 
         {% if logs is not defined or logs|length == 0 %}
-            <p class="alert alert-warning">The log file seems empty...</p>
+            <p class="alert alert-warning">
+                The log file seems empty...
+                <br>
+                LogPath: {{ logPath ?? 'NULL' }}
+            </p>
         {% else %}
             <table class="ez-table table">
                 <thead>
