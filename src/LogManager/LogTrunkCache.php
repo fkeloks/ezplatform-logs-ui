@@ -1,6 +1,6 @@
 <?php
 
-namespace EzPlatformLogsUi\Bundle\Filesystem;
+namespace EzPlatformLogsUi\Bundle\LogManager;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -11,7 +11,7 @@ use Symfony\Component\Cache\Simple\FilesystemCache;
  *
  * @author Florian Bouché <contact@florian-bouche.fr>
  *
- * @package EzPlatformLogsUi\Bundle\Filesystem
+ * @package EzPlatformLogsUi\Bundle\LogManager
  */
 class LogTrunkCache {
 

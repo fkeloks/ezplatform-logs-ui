@@ -1,6 +1,6 @@
 <?php
 
-namespace EzPlatformLogsUi\Bundle\Filesystem;
+namespace EzPlatformLogsUi\Bundle\LogManager;
 
 use EzPlatformLogsUi\Bundle\Parser\LineLogParser;
 
@@ -9,7 +9,7 @@ use EzPlatformLogsUi\Bundle\Parser\LineLogParser;
  *
  * @author Florian Bouché <contact@florian-bouche.fr>
  *
- * @package EzPlatformLogsUi\Bundle\Filesystem
+ * @package EzPlatformLogsUi\Bundle\LogManager
  */
 class LogFile {
 

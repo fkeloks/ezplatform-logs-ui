@@ -2,7 +2,7 @@
 
 namespace EzPlatformLogsUi\Tests;
 
-use EzPlatformLogsUi\Bundle\Filesystem\LogFile;
+use EzPlatformLogsUi\Bundle\LogManager\LogFile;
 use PHPUnit\Framework\TestCase;
 
 /**
