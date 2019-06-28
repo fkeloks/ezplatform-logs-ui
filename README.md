@@ -1,5 +1,5 @@
 EzPlatformLogsUiBundle  
-[![Build Status](https://travis-ci.com/fkeloks/ezplatform-logs-ui.svg?token=oqpWqa5XV53bEZxESkgV&branch=master)](https://travis-ci.com/fkeloks/ezplatform-logs-ui)
+[![Build Status](https://travis-ci.com/fkeloks/ezplatform-logs-ui.svg?branch=master)](https://travis-ci.com/fkeloks/ezplatform-logs-ui)
 [![License](https://poser.pugx.org/fkeloks/ezplatform-logs-ui/license)](https://packagist.org/packages/fkeloks/ezplatform-logs-ui)
 ============
 
