@@ -2,8 +2,8 @@
 
 namespace EzPlatformLogsUi\Bundle\Controller;
 
-use EzPlatformLogsUi\Bundle\Filesystem\LogFile;
-use EzPlatformLogsUi\Bundle\Filesystem\LogTrunkCache;
+use EzPlatformLogsUi\Bundle\LogManager\LogFile;
+use EzPlatformLogsUi\Bundle\LogManager\LogTrunkCache;
 use Psr\SimpleCache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;

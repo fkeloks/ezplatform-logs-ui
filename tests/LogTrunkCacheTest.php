@@ -2,7 +2,7 @@
 
 namespace EzPlatformLogsUi\Tests;
 
-use EzPlatformLogsUi\Bundle\Filesystem\LogTrunkCache;
+use EzPlatformLogsUi\Bundle\LogManager\LogTrunkCache;
 use PHPUnit\Framework\TestCase;
 
 /**
