@@ -2,6 +2,7 @@
 
 namespace EzPlatformLogsUi\Bundle\Controller;
 
+use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
 use EzPlatformLogsUi\Bundle\LogManager\LogFile;
 use EzPlatformLogsUi\Bundle\LogManager\LogTrunkCache;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -38,6 +39,8 @@ class LogsManagerController extends Controller {
      * @throws InvalidArgumentException
      */
     public function indexAction(int $chunkId = 1): Response {
+        $this->denyAccessUnlessGranted(new Attribute('ezplatform_logs_ui', 'read_logs'));
+
         $logPath = $this->getParameterSafely('log_path');
         $cacheDir = $this->getParameterSafely('kernel.cache_dir');
         $projectDir = $this->getParameterSafely('kernel.project_dir');
@@ -98,6 +101,8 @@ class LogsManagerController extends Controller {
      * @throws InvalidArgumentException
      */
     public function reloadAction(): Response {
+        $this->denyAccessUnlessGranted(new Attribute('ezplatform_logs_ui', 'reload_logs'));
+
         $logPath = $this->getParameterSafely('log_path');
         $cacheDir = $this->getParameterSafely('kernel.cache_dir');
 

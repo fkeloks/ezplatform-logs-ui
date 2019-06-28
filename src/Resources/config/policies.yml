@@ -1,0 +1,3 @@
+ezplatform_logs_ui:
+    read_logs: ~
+    reload_logs: ~
